@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emilly</title>
+    <link rel="icon" type="image/x-icon" href="./Emilly.png">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffa5ffCF;
+            background-image: url("./EmillyWallpaper.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .player {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #503399;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .player img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .player button {
+            background-color: #1db954;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s;
+        }
+
+        .player button:hover {
+            transform: scale(1.16);
+        }
+
+        .player span {
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 10px;
+            animation: colorChange 2s infinite;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #503399;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @keyframes rotateImage {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: red;
+            }
+            25% {
+                color: blue;
+            }
+            50% {
+                color: yellow;
+            }
+            75% {
+                color: green;
+            }
+            100% {
+                color: purple;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <img id="artistImage" src="./Emilly.png" alt="Imagem do Artista">
+        <button id="playButton" onclick="playMusic()">Tocar</button>
+        <button id="pauseButton" onclick="pauseMusic()">Pausar</button>
+        <button id="resumeButton" onclick="resumeMusic()" style="display: none;">Continuar</button>
+        <button id="increaseVolumeButton" onclick="increaseVolume()">Aumentar Volume</button>
+        <button id="decreaseVolumeButton" onclick="decreaseVolume()">Diminuir Volume</button>
+        <span id="songName">Emilly - k1tty</span>
+    </div>
+
+    <div class="footer">
+        Feito por Kayky
+    </div>
+
+    <script>
+        var audio = new Audio("./EmillyMusic.mp3");
+        var playButton = document.getElementById("playButton");
+        var pauseButton = document.getElementById("pauseButton");
+        var resumeButton = document.getElementById("resumeButton");
+        var artistImage = document.getElementById("artistImage");
+        var increaseVolumeButton = document.getElementById("increaseVolumeButton");
+        var decreaseVolumeButton = document.getElementById("decreaseVolumeButton");
+        var defaultVolume = 0.07;
+
+        audio.volume = defaultVolume;
+
+        var rotationAnimation;
+
+        function playMusic() {
+            audio.play();
+            playButton.style.display = "none";
+            pauseButton.style.display = "block";
+            artistImage.style.animation = "rotateImage 13s infinite linear";
+        }
+
+        function pauseMusic() {
+            audio.pause();
+            pauseButton.style.display = "none";
+            resumeButton.style.display = "block";
+            artistImage.style.animationPlayState = "paused";
+        }
+
+        function resumeMusic() {
+            audio.play();
+            resumeButton.style.display = "none";
+            pauseButton.style.display = "block";
+            artistImage.style.animationPlayState = "running";
+        }
+
+        function changeRotationSpeed(speed) {
+            artistImage.style.animationDuration = speed + "s";
+        }
+
+        function increaseVolume() {
+            if (audio.volume < 1) {
+                audio.volume += 0.1;
+            }
+        }
+
+        function decreaseVolume() {
+            if (audio.volume > 0) {
+                audio.volume -= 0.1;
+            }
+        }
+    </script>
+</body>
+</html>
